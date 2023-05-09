@@ -1453,6 +1453,15 @@ class IQ_Option:
         else:
             return False
 
+    def close_position_v3(self, position_id):
+        self.api.close_position(position_id)
+        while self.api.close_position_data == None:
+            pass
+        if self.api.close_position_data["status"] == 2000:
+            return True
+        else:
+            return False
+
     def get_overnight_fee(self, instrument_type, active):
         self.api.overnight_fee = None
         self.api.get_overnight_fee(instrument_type, OP_code.ACTIVES[active])
